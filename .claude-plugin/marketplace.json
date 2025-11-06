@@ -7,9 +7,8 @@
     {
       "name": "flutter-init",
       "source": {
-        "type": "github",
-        "repo": "bear2u/claude-plugins",
-        "path": "skills/flutter-init"
+        "source": "github",
+        "repo": "bear2u/claude-plugins"
       },
       "description": "Flutter project initialization plugin"
     }
