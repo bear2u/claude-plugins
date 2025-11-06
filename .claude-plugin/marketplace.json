@@ -1,0 +1,13 @@
+{
+  "name": "suji-father-marketplace",
+  "owner": {
+    "name": "Suji Father"
+  },
+  "plugins": [
+    {
+      "name": "flutter-init",
+      "source": "./flutter-init",
+      "description": "Flutter project initialization plugin"
+    }
+  ]
+}
