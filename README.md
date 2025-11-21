@@ -51,6 +51,27 @@ Claude Code를 위한 커스텀 스킬 마켓플레이스입니다. 개발 생�
 
 # 랜딩페이지 가이드
 /plugin marketplace install suji-father-marketplace@landing-page-guide
+
+# 랜딩페이지 가이드 V2
+/plugin marketplace install suji-father-marketplace@landing-page-guide-v2
+
+# 프론트엔드 디자인
+/plugin marketplace install suji-father-marketplace@frontend-design
+
+# 코드 프롬프트 코치
+/plugin marketplace install suji-father-marketplace@code-prompt-coach
+
+# Codex-Claude-Cursor 루프
+/plugin marketplace install suji-father-marketplace@codex-claude-cursor-loop
+
+# Midjourney 카드 뉴스 배경
+/plugin marketplace install suji-father-marketplace@midjourney-cardnews-bg
+
+# 워크스루 자동 문서화
+/plugin marketplace install suji-father-marketplace@workthrough
+
+# 워크스루 자동 문서화 V2 (VitePress)
+/plugin marketplace install suji-father-marketplace@workthrough-v2
 ```
 
 ### 4. 설치된 플러그인 확인
