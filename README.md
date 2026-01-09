@@ -72,6 +72,12 @@ Claude Code를 위한 커스텀 스킬 마켓플레이스입니다. 개발 생�
 
 # 워크스루 자동 문서화 V2 (VitePress)
 /plugin marketplace install suji-father-marketplace@workthrough-v2
+
+# Gemini 로고 제거기
+/plugin marketplace install suji-father-marketplace@gemini-logo-remover
+
+# 디자인 프롬프트 생성기 V2
+/plugin marketplace install suji-father-marketplace@design-prompt-generator-v2
 ```
 
 ### 4. 설치된 플러그인 확인
@@ -198,6 +204,25 @@ Comprehensive guide for creating high-conversion landing pages with Next.js and 
 - ShadCN UI 통합
 - SEO 최적화
 - 반응형 디자인
+
+### 12. Gemini Logo Remover
+OpenCV inpainting을 사용하여 AI 생성 이미지에서 Gemini 로고 및 워터마크를 제거합니다
+
+**주요 기능:**
+- OpenCV inpainting 기반 로고 제거
+- 좌표 기반 영역 지정 제거
+- 코너 기반 자동 제거
+- TELEA 알고리즘으로 자연스러운 복원
+
+### 13. Design Prompt Generator V2
+AI 웹 개발 도구(Lovable, Cursor, Bolt)를 위한 7단계 계층적 디자인 프롬프트 생성기입니다
+
+**주요 기능:**
+- 7단계 프레임워크 (Domain Research → Micro-interactions)
+- 8개 도메인별 UX 패턴 매트릭스
+- 7가지 감정 키워드 매트릭스
+- 완전한 디자인 시스템 템플릿
+- 마이크로 인터랙션 정의
 
 ## 문제 해결
 
