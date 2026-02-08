@@ -33,7 +33,7 @@ DuckDuckGo 검색 엔진을 활용한 텍스트, 뉴스, 이미지 검색 스킬
 ### Step 2: 스크립트 실행
 
 ```bash
-python3 ~/.claude/skills/web-search/scripts/search.py -q "검색어" -t text -n 5
+python3 ~/.claude/plugins/cache/suji-father-marketplace/web-search/scripts/search.py -q "검색어" -t text -n 5
 ```
 
 ### Step 3: 결과 정리
@@ -58,22 +58,22 @@ JSON 출력을 사용자에게 읽기 좋은 형태로 정리하여 전달.
 
 ### 텍스트 검색
 ```bash
-python3 ~/.claude/skills/web-search/scripts/search.py -q "Claude Code Anthropic" -t text -n 5
+python3 ~/.claude/plugins/cache/suji-father-marketplace/web-search/scripts/search.py -q "Claude Code Anthropic" -t text -n 5
 ```
 
 ### 한국 뉴스 검색 (최근 1주)
 ```bash
-python3 ~/.claude/skills/web-search/scripts/search.py -q "AI 인공지능" -t news -n 10 -r kr-kr -p w
+python3 ~/.claude/plugins/cache/suji-father-marketplace/web-search/scripts/search.py -q "AI 인공지능" -t news -n 10 -r kr-kr -p w
 ```
 
 ### 이미지 검색
 ```bash
-python3 ~/.claude/skills/web-search/scripts/search.py -q "modern web design" -t images -n 5
+python3 ~/.claude/plugins/cache/suji-father-marketplace/web-search/scripts/search.py -q "modern web design" -t images -n 5
 ```
 
 ### 결과를 파일로 저장
 ```bash
-python3 ~/.claude/skills/web-search/scripts/search.py -q "React 19" -t text -n 20 > results.json
+python3 ~/.claude/plugins/cache/suji-father-marketplace/web-search/scripts/search.py -q "React 19" -t text -n 20 > results.json
 ```
 
 ## 검색 연산자
