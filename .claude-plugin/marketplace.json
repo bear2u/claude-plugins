@@ -102,6 +102,96 @@
         "path": "skills/landing-page-guide"
       },
       "description": "Comprehensive guide for creating high-conversion landing pages with Next.js and React, following DESIGNNAS 11 essential elements framework"
+    },
+    {
+      "name": "landing-page-guide-v2",
+      "source": {
+        "source": "github",
+        "repo": "bear2u/claude-plugins",
+        "path": "skills/landing-page-guide-v2"
+      },
+      "description": "Create distinctive, high-converting landing pages that combine proven conversion elements with exceptional design quality. Build beautiful, memorable landing pages using Next.js 14+ and ShadCN UI that avoid generic AI aesthetics while following the 11 essential elements framework."
+    },
+    {
+      "name": "frontend-design",
+      "source": {
+        "source": "github",
+        "repo": "bear2u/claude-plugins",
+        "path": "skills/frontend-design"
+      },
+      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, or applications. Generates creative, polished code that avoids generic AI aesthetics."
+    },
+    {
+      "name": "code-prompt-coach",
+      "source": {
+        "source": "github",
+        "repo": "bear2u/claude-plugins",
+        "path": "skills/code-prompt-coach"
+      },
+      "description": "Analyze your Claude Code session logs to improve prompt quality, optimize tool usage, and become a better AI-native engineer."
+    },
+    {
+      "name": "codex-claude-cursor-loop",
+      "source": {
+        "source": "github",
+        "repo": "bear2u/claude-plugins",
+        "path": "skills/codex-claude-cursor-loop"
+      },
+      "description": "Orchestrates a triple-AI engineering loop where Claude plans, Codex validates logic and reviews code, and Cursor implements, with continuous feedback for optimal code quality"
+    },
+    {
+      "name": "midjourney-cardnews-bg",
+      "source": {
+        "source": "github",
+        "repo": "bear2u/claude-plugins",
+        "path": "skills/midjourney-cardnews-bg"
+      },
+      "description": "Generate Midjourney prompts for 600x600 card news background images based on topic, mood, and style preferences"
+    },
+    {
+      "name": "workthrough",
+      "source": {
+        "source": "github",
+        "repo": "bear2u/claude-plugins",
+        "path": "skills/workthrough"
+      },
+      "description": "Automatically document all development work and code modifications in a structured workthrough format. Use this skill after completing any development task, bug fix, feature implementation, or code refactoring to create comprehensive documentation."
+    },
+    {
+      "name": "workthrough-v2",
+      "source": {
+        "source": "github",
+        "repo": "bear2u/claude-plugins",
+        "path": "skills/workthrough-v2"
+      },
+      "description": "Use this skill proactively and automatically after completing ANY development work. AI agent summarizes: what was done, what was changed/improved, and suggests future additions/improvements - all concisely in Korean."
+    },
+    {
+      "name": "gemini-logo-remover",
+      "source": {
+        "source": "github",
+        "repo": "bear2u/claude-plugins",
+        "path": "skills/gemini-logo-remover"
+      },
+      "description": "Remove Gemini logos, watermarks, or AI-generated image markers using OpenCV inpainting. Use this skill when the user asks to remove Gemini logo, AI watermark, or any logo/watermark from images."
+    },
+    {
+      "name": "design-prompt-generator-v2",
+      "source": {
+        "source": "github",
+        "repo": "bear2u/claude-plugins",
+        "path": "skills/design-prompt-generator-v2"
+      },
+      "description": "Advanced 7-step hierarchical design prompt generator for AI web development tools (Lovable, Cursor, Bolt). Generates domain-aware, user-journey-based design prompts with emotional design considerations."
+    },
+    {
+      "name": "web-search",
+      "source": {
+        "source": "github",
+        "repo": "bear2u/claude-plugins",
+        "path": "skills/web-search"
+      },
+      "description": "DuckDuckGo를 사용한 웹 검색. 텍스트, 뉴스, 이미지 검색을 지원. 빌트인 WebSearch가 제한적이거나, 뉴스/이미지 검색, 지역/기간 필터가 필요할 때 사용."
     }
   ]
 }
