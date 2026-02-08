@@ -1,12 +1,22 @@
 ---
 name: flutter-init
-description: Use when user wants to create a new Flutter project (Todo/Habit/Note/Expense/Custom domain) with Clean Architecture, Riverpod 3.0, Drift, and modern Flutter stack
+description: Use when user wants to create a new Flutter project (Todo/Habit/Note/Expense/Custom domain) with Feature-First Architecture, Riverpod 3 Code Gen, Drift, and modern Flutter stack
 ---
 
 # Flutter Init Skill
 
-도메인 기반 Flutter 프로젝트를 생성하고 현대적인 아키텍처로 자동 설정합니다.
-Todo, Habit, Note, Expense 또는 Custom 도메인을 선택하여 Clean Architecture 기반의 완전한 CRUD 앱을 즉시 생성할 수 있습니다.
+도메인 기반 Flutter 프로젝트를 생성하고 **Feature-First 아키텍처**로 자동 설정합니다.
+Todo, Habit, Note, Expense 또는 Custom 도메인을 선택하여 오프라인 우선(Offline-first) CRUD 앱을 즉시 생성할 수 있습니다.
+
+## Tech Stack
+
+| 영역 | 기술 | 비고 |
+|------|------|------|
+| **State** | Riverpod 3 | Code Gen 필수 (`@riverpod`) |
+| **Data** | Freezed 3 | Immutable Models |
+| **DB** | Drift | SQLite, Offline-first |
+| **Network** | Dio | HTTP Client |
+| **Routing** | GoRouter | Typed Routes 필수 |
 
 ## Quick Start
 
@@ -25,14 +35,14 @@ flutter create --platforms android,ios --android-language kotlin --org com.examp
 # 2. 패키지 설치
 flutter pub get
 
-# 3. 도메인별 Clean Architecture 코드 자동 생성
-# - domain/entities/[domain].dart (Freezed 엔티티)
-# - data/datasources/local/app_database.dart (Drift 테이블)
-# - data/repositories/[domain]_repository_impl.dart (Repository 구현)
-# - presentation/providers/[domain]_providers.dart (Riverpod 3.0)
-# - presentation/screens/* (List/Detail/Form 화면)
+# 3. Feature-First 구조로 코드 자동 생성
+# - lib/src/features/{domain}/presentation/ (UI + Notifier)
+# - lib/src/features/{domain}/domain/ (Freezed 모델)
+# - lib/src/features/{domain}/data/ (Repository, DAO)
+# - lib/src/database/ (Drift DB 정의)
+# - lib/src/routing/ (GoRouter Typed Routes)
 
-# 4. 코드 생성 (Freezed, Drift, JSON Serializable)
+# 4. 코드 생성 (Riverpod, Freezed, Drift)
 dart run build_runner build --delete-conflicting-outputs
 
 # 5. 코드 검증 및 오류 자동 수정 (필수)
@@ -147,73 +157,74 @@ flutter run
    - 명령어: `flutter create --platforms android,ios --android-language kotlin --org [조직명] [폴더명]`
    - 예: `flutter create --platforms android,ios --android-language kotlin --org com.example my_habit_app`
    - 폴더명과 프로젝트명(패키지명)이 다른 경우, 생성 후 pubspec.yaml의 `name` 필드를 수정
+
 2. **Kotlin DSL 확인** (최신 Flutter는 자동으로 Kotlin DSL 사용)
+
 3. **선택된 패키지 설치**: `pubspec.yaml` 업데이트 후 `flutter pub get`
-4. **폴더 구조 생성**: Clean Architecture (core, data, domain, presentation)
-5. **도메인별 보일러플레이트 생성**:
+
+4. **Feature-First 폴더 구조 생성**:
+   ```
+   lib/
+   └── src/
+       ├── features/
+       │   └── {domain}/
+       │       ├── presentation/   # UI 위젯 + Notifier (@riverpod)
+       │       ├── domain/         # Freezed 모델/엔티티
+       │       └── data/           # Repository 구현, DAO
+       ├── database/               # Drift DB 정의 (전역)
+       ├── routing/                # GoRouter Typed Routes
+       └── shared/                 # 공통 위젯, 유틸리티
+   ```
+
+5. **도메인별 보일러플레이트 생성** (Feature-First + Riverpod Code Gen):
 
    **A) Todo**: title, description, isCompleted, createdAt, completedAt
-   - Repository: getTodos, createTodo, updateTodo, toggleCompletion, deleteTodo
-   - Providers: filteredTodosProvider (all/pending/completed)
-   - UI: TodoListScreen (필터링), TodoDetailScreen, TodoFormDialog
+   - `features/todo/domain/todo.dart` - Freezed 엔티티
+   - `features/todo/data/todo_repository.dart` - Repository + DAO
+   - `features/todo/presentation/todo_notifier.dart` - `@riverpod` Notifier
+   - `features/todo/presentation/todo_list_screen.dart` - UI
 
    **B) Habit**: name, description, frequency, streak, lastCompletedAt, goal, isActive
-   - Repository: getHabits, createHabit, updateHabit, completeHabit, deleteHabit
-   - Providers: filteredHabitsProvider (active/inactive), habitStatsProvider
-   - UI: HabitListScreen (통계), HabitDetailScreen, HabitFormDialog
+   - `features/habit/domain/habit.dart` - Freezed 엔티티
+   - `features/habit/data/habit_repository.dart` - Repository + DAO
+   - `features/habit/presentation/habit_notifier.dart` - `@riverpod` Notifier
+   - `features/habit/presentation/habit_list_screen.dart` - UI
 
    **C) Note**: title, content, tags, isPinned, createdAt, updatedAt
-   - Repository: getNotes, createNote, updateNote, togglePin, deleteNote
-   - Providers: filteredNotesProvider (pinned/all/byTag), searchProvider
-   - UI: NoteListScreen (검색/태그), NoteDetailScreen, NoteFormDialog
+   - `features/note/domain/note.dart` - Freezed 엔티티
+   - `features/note/data/note_repository.dart` - Repository + DAO
+   - `features/note/presentation/note_notifier.dart` - `@riverpod` Notifier
+   - `features/note/presentation/note_list_screen.dart` - UI
 
    **D) Expense**: amount, category, description, date, paymentMethod
-   - Repository: getExpenses, createExpense, updateExpense, deleteExpense
-   - Providers: expensesByCategory, monthlyStats, filteredExpenses
-   - UI: ExpenseListScreen (통계), ExpenseDetailScreen, ExpenseFormDialog
+   - `features/expense/domain/expense.dart` - Freezed 엔티티
+   - `features/expense/data/expense_repository.dart` - Repository + DAO
+   - `features/expense/presentation/expense_notifier.dart` - `@riverpod` Notifier
+   - `features/expense/presentation/expense_list_screen.dart` - UI
 
    **E) Custom**: 사용자 정의 필드
-   - Repository: 기본 CRUD 메서드
-   - Providers: 기본 list provider
-   - UI: 기본 List/Detail/Form 화면
+   - 동일한 Feature-First 구조로 생성
 
-6. **설정 파일 생성** (라우팅, 스토리지, 다국어 등)
-7. **Android 설정 업데이트** (CRITICAL for flutter_local_notifications):
-   - `android/app/build.gradle.kts`에 core library desugaring 활성화:
-     ```kotlin
-     android {
-         compileOptions {
-             sourceCompatibility = JavaVersion.VERSION_11
-             targetCompatibility = JavaVersion.VERSION_11
-             isCoreLibraryDesugaringEnabled = true  // 추가
-         }
-     }
-     dependencies {
-         coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")  // 추가
-     }
-     ```
-8. **코드 생성**: `dart run build_runner build --delete-conflicting-outputs`
-9. **코드 검증 및 오류 수정**:
+6. **설정 파일 생성**:
+   - `lib/src/database/app_database.dart` - Drift DB (전역)
+   - `lib/src/routing/app_router.dart` - GoRouter Typed Routes
+   - `assets/translations/` - Easy Localization
+
+7. **코드 생성**: `dart run build_runner build --delete-conflicting-outputs`
+
+8. **코드 검증 및 오류 수정**:
 
    a. `flutter analyze` 실행
 
    b. 발견된 오류 수정:
-   - **Freezed 3.0 호환성** (CRITICAL): 모든 Freezed 엔티티는 `sealed class` 사용
-     - ❌ `class User with _$User`
-     - ✅ `sealed class User with _$User`
-   - **테마 설정**: `CardTheme` → `CardThemeData` 사용 (deprecated)
-   - **API Client Map 타입**: `Map<String, dynamic>` 반환 시 생성 코드 검증
-     - retrofit_generator가 생성한 `dynamic.fromJson` 에러 발생 시 수정 필요
-   - **import 경로 수정**: 모든 상대 경로를 `package:` 형식으로 변경
-     - 예: `import '../../domain/entities/todo.dart';` → `import 'package:todo_app/domain/entities/todo.dart';`
-   - **패키지 의존성 확인**: 누락된 패키지 추가 (예: `shared_preferences`)
-   - **Riverpod 3.0 호환성**: `StateNotifier` → `Notifier`, `StateProvider` → `NotifierProvider`
-   - **FluentUI 아이콘 이름 확인**: 존재하지 않는 아이콘은 대체
-   - **타입 안전성**: switch expression 사용, null safety 준수
+   - **import 경로**: `package:` 형식 사용
+   - **Riverpod 3 Code Gen**: 모든 Provider는 `@riverpod` 어노테이션 사용
+   - **Freezed 3**: `@freezed` 어노테이션 + `part` 파일 확인
+   - **AsyncValue**: 로딩/에러 상태는 `.when()` 패턴 사용
 
    c. 재검증: 모든 error 레벨 오류가 없을 때까지 반복
 
-   d. 목표: `flutter analyze` 결과가 "0-1 issues found" (info 레벨만 허용)
+   d. 목표: `flutter analyze` 결과가 "0 issues found"
 
    **✅ CRITICAL**: 이 단계는 필수입니다. 모든 error를 제거해야 다음 단계로 진행할 수 있습니다.
 
@@ -277,39 +288,73 @@ flutter run
 
 ## Core Principles
 
-- **Repository 패턴**: 데이터 레이어와 도메인 레이어 분리
-- **의존성 주입**: Riverpod 3.x를 통한 의존성 관리
-- **불변성**: Freezed로 불변 모델 생성
-- **다국어 지원**: Easy Localization으로 i18n
-- **모던 UI**: FluentUI Icons 사용
+- **Feature-First**: 기능 단위 독립 구조 (`lib/src/features/{feature}/`)
+- **Riverpod 3 Code Gen**: 모든 Provider는 `@riverpod` 어노테이션 필수
+- **Freezed 3**: 불변 모델 + JSON 직렬화
+- **Offline-First**: Drift SQLite로 로컬 우선 저장
+- **Typed Routes**: GoRouter로 타입 안전한 네비게이션
+- **AsyncValue**: 로딩/에러 상태는 `.when()` 패턴 사용
+
+## Coding Conventions
+
+### 1. Riverpod 3 (State Management)
+```dart
+// ✅ Code Gen 사용 (필수)
+@riverpod
+class TodoNotifier extends _$TodoNotifier {
+  @override
+  Future<List<Todo>> build() async {
+    return ref.watch(todoRepositoryProvider).getTodos();
+  }
+}
+
+// UI에서 사용
+ref.watch(todoNotifierProvider).when(
+  data: (todos) => ListView(...),
+  error: (e, st) => ErrorWidget(e),
+  loading: () => CircularProgressIndicator(),
+);
+```
+
+### 2. Freezed 3 (Models)
+```dart
+@freezed
+class Todo with _$Todo {
+  const factory Todo({
+    required int id,
+    required String title,
+    @Default(false) bool isCompleted,
+  }) = _Todo;
+
+  factory Todo.fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);
+}
+```
+
+### 3. 에러 핸들링
+- Repository: `try-catch` 후 커스텀 에러 반환 또는 `AsyncValue`로 래핑
+- UI: `.when(data, error, loading)` 패턴으로 에러 표시
+
+### 4. Drift (Local DB)
+- 테이블 정의: `lib/src/database/` (전역)
+- DAO: `features/{feature}/data/` 내에 위치
 
 ## Reference Files
 
 [references/setup-guide.md](references/setup-guide.md) - 완전한 가이드
-- 기본 셋업 (도메인별 CRUD, 다국어, FluentUI Icons)
-- 선택 옵션: GoRouter, Auth, FPDart, Google Fonts, Responsive Utils, 패키지 업데이트
+- Feature-First 구조 상세
+- Riverpod 3 Code Gen 패턴
+- Drift DAO 패턴
+- GoRouter Typed Routes
 
 ## Notes
 
-- **대화형 스킬**: 사용자에게 도메인과 프리셋 선택을 통해 맞춤형 앱 구성
-- **도메인 지원**: Todo, Habit, Note, Expense, Custom (사용자 정의)
+- **Feature-First 구조**: 기능별 독립 폴더 (`lib/src/features/`)
+- **Code Gen 필수**: Riverpod, Freezed, Drift 모두 코드 생성 사용
+- **도메인 지원**: Todo, Habit, Note, Expense, Custom
 - **프리셋 제공**: Full Stack, Essential, Minimal, Custom
-- **선택 가능 기능**: GoRouter, Auth, FPDart, Google Fonts, Responsive Utils
-- **기본 포함**: Riverpod 3.x, Easy Localization, FluentUI Icons, Drift, Dio, SharedPreferences
-- **다국어**: 영어/한국어 (확장 가능)
-- **플랫폼**: Android/Kotlin, iOS/Swift (웹/윈도우/리눅스 제외)
-- **품질 보증**:
-  - 모든 프로젝트는 `flutter analyze` 통과 필수
-  - package: imports 스타일 준수
-  - 타입 안전성 보장
-  - 코드 생성 자동화
-  - 도메인별 최적화된 UI/UX
-
-<!--
-PROGRESSIVE DISCLOSURE GUIDELINES:
-- Keep this file ~50 lines total (max ~150 lines)
-- Use 1-2 code blocks only (recommend 1)
-- Keep description <200 chars for Level 1 efficiency
-- Move detailed docs to references/ for Level 3 loading
-- This is Level 2 - quick reference ONLY, not a manual
--->
+- **플랫폼**: Android/Kotlin, iOS/Swift
+- **주요 명령어**:
+  - Build: `dart run build_runner build --delete-conflicting-outputs`
+  - Watch: `dart run build_runner watch`
+  - Lint: `flutter analyze`
+  - Test: `flutter test`
